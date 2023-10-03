@@ -43,7 +43,7 @@ app.get('/getall',(req,res)=>{
 
 app.get('/allUsers',async (req , res)=>{
     try {
-        foundUsers=await User.find();
+        foundUsers=await User.find( { last_name : "Montasar" } );
         res.send(foundUsers);
         
     } catch (error) {
