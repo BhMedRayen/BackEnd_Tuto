@@ -20,7 +20,16 @@ app.post('/add',(req , res)=>{
    )
 });
 
-
+app.post('/create', async (req , res)=>{
+    try {
+        data = req.body;
+        user=new User(data);
+        usersaved=await user.save()
+        res.send(usersaved);
+    } catch (error) {
+        res.send(error);
+    }
+} )
 
 
 
