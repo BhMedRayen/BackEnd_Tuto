@@ -3,9 +3,6 @@ const app=express();
 const User=require('./models/user');
 require('./config/connect')
 app.use(express.json());
-
-
-
 app.post('/add',(req , res)=>{
    data = req.body;
    user = new User(data);
