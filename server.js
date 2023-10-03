@@ -31,11 +31,27 @@ app.post('/create', async (req , res)=>{
     }
 } )
 
-
-
-app.get('/getall',()=>{
-    console.log('get work');
+app.get('/getall',(req,res)=>{
+   User.find().then(
+     (users)=>{
+        res.send(users);
+     }
+   ).catch(
+    (err)=>res.send(err)
+   )
 });
+
+app.get('/allUsers',async (req , res)=>{
+    try {
+        foundUsers=await User.find();
+        res.send(foundUsers);
+        
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+
 
 app.put('/update',()=>{
     console.log('update work')
