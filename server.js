@@ -54,11 +54,17 @@ app.put('/update',()=>{
     console.log('update work')
 })
 
-app.delete('/delete',()=>{
-    console.log('delete work')
-})
+app.delete('/deleteUser/:id', async (req, res) => {
+    try {
+        Id_delete = req.params.id;
+        user_to_delete = await User.findByIdAndDelete({ _id: Id_delete });
+        res.send(user_to_delete);
+    } catch (error) {
+        res.send(error);
+    }
+});
 
-app.get('/getuser/:id',async (req,res)=>{
+app.get('/getuser/:id',async (res,req)=>{
         try {
             myId=req.params.id;
             user1= await User.findOne({_id:myId})
