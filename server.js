@@ -102,7 +102,6 @@ app.get('/getuser/:id',async (req,res)=>{
 /**************************************** Product crud ****************************************/  
 /**************************************** Create ****************************************/  
 
-
 app.post('/addProduct',async (req,res)=>{
     try {
        data = req.body;
@@ -111,6 +110,15 @@ app.post('/addProduct',async (req,res)=>{
        res.send(save_product)
     } catch (error) {
         res.send(error)
+    }
+})
+/**************************************** Read ****************************************/  
+app.get('/getProduct', async (req,res)=>{
+    try {
+        products=await Product.find();
+        res.send(products)
+    } catch (error) {
+        res.status(404).send(error)
     }
 })
 
