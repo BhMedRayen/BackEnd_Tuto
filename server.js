@@ -58,6 +58,18 @@ app.delete('/delete',()=>{
     console.log('delete work')
 })
 
+app.get('/getuser/:id',async (req,res)=>{
+        try {
+            myId=req.params.id;
+            user1= await User.findOne({_id:myId})
+            res.send(user1);
+        } catch (error) {
+            res.send(error);
+        }
+})
+
+
+
 app.listen(3000,()=>{
     console.log('server work')  
 })
