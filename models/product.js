@@ -15,3 +15,5 @@ const Product = mongoose.model('Product',{
      }
 
 })
+
+module.exports=Product;
