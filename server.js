@@ -1,8 +1,14 @@
 const express = require('express');
 const app=express();
 const User=require('./models/user');
+const Product=require('./models/product')
 require('./config/connect')
-app.use(express.json());
+app.use(express.json())
+
+//User Crud 
+
+//create : 
+
 app.post('/add',(req , res)=>{
    data = req.body;
    user = new User(data);
@@ -17,6 +23,8 @@ app.post('/add',(req , res)=>{
    )
 });
 
+//create async method
+
 app.post('/create', async (req , res)=>{
     try {
         data = req.body;
@@ -28,6 +36,8 @@ app.post('/create', async (req , res)=>{
     }
 } )
 
+//read 
+
 app.get('/getall',(req,res)=>{
    User.find().then(
      (users)=>{
@@ -37,6 +47,8 @@ app.get('/getall',(req,res)=>{
     (err)=>res.send(err)
    )
 });
+
+//read async method 
 
 app.get('/allUsers',async (req , res)=>{
     try {
@@ -48,7 +60,7 @@ app.get('/allUsers',async (req , res)=>{
     }
 })
 
-
+//update 
 
 app.put('/update/:id',async (req,res)=>{
     try {
@@ -61,6 +73,8 @@ app.put('/update/:id',async (req,res)=>{
     }
 })
 
+// delete 
+
 app.delete('/deleteUser/:id', async (req, res) => {
     try {
         Id_delete = req.params.id;
@@ -71,7 +85,10 @@ app.delete('/deleteUser/:id', async (req, res) => {
     }
 });
 
-app.get('/getuser/:id',async (res,req)=>{
+
+//get by id 
+
+app.get('/getuser/:id',async (req,res)=>{
         try {
             myId=req.params.id;
             user1= await User.findOne({_id:myId})
@@ -81,6 +98,21 @@ app.get('/getuser/:id',async (res,req)=>{
         }
 })
 
+
+/**************************************** Product crud ****************************************/  
+/**************************************** Create ****************************************/  
+
+
+app.post('/addProduct',async (req,res)=>{
+    try {
+       data = req.body;
+       produit = new Product(data)
+       save_product=await produit.save()
+       res.send(save_product)
+    } catch (error) {
+        res.send(error)
+    }
+})
 
 
 app.listen(3000,()=>{
