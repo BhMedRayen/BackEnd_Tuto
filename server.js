@@ -50,8 +50,15 @@ app.get('/allUsers',async (req , res)=>{
 
 
 
-app.put('/update',()=>{
-    console.log('update work')
+app.put('/update/:id',async (req,res)=>{
+    try {
+         id=req.params.id;
+         new_data=req.body;
+         update_user=await User.findByIdAndUpdate({_id:id} ,new_data)
+         res.send(update_user);
+    } catch (error) {
+        res.send(error)
+    }
 })
 
 app.delete('/deleteUser/:id', async (req, res) => {
