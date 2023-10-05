@@ -1,6 +1,7 @@
 const express = require('express');
-
 const router = express.router();
+const Product=require('../models/product')
+
 
 /**************************************** Product crud ****************************************/  
 /**************************************** Create ****************************************/  
