@@ -4,7 +4,7 @@ const User=require('../models/user');
 
 //User Crud 
 //create : 
-app.post('/add',(req , res)=>{
+router.post('/add',(req , res)=>{
     data = req.body;
     user = new User(data);
     user.save().then(
@@ -19,7 +19,7 @@ app.post('/add',(req , res)=>{
  });
 
 //create async method
-app.post('/create', async (req , res)=>{
+router.post('/create', async (req , res)=>{
     try {
         data = req.body;
         user=new User(data);
@@ -31,7 +31,7 @@ app.post('/create', async (req , res)=>{
 } )
 
 //read 
-app.get('/getall',(req,res)=>{
+router.get('/getall',(req,res)=>{
     User.find().then(
       (users)=>{
          res.send(users);
@@ -42,7 +42,7 @@ app.get('/getall',(req,res)=>{
  });
 
  //read async method 
-app.get('/allUsers',async (req , res)=>{
+router.get('/allUsers',async (req , res)=>{
     try {
         foundUsers=await User.find( { last_name : "Montasar" } );
         res.send(foundUsers);
@@ -53,7 +53,7 @@ app.get('/allUsers',async (req , res)=>{
 })
 
 //update 
-app.put('/update/:id',async (req,res)=>{
+router.put('/update/:id',async (req,res)=>{
     try {
          id=req.params.id;
          new_data=req.body;
@@ -65,7 +65,7 @@ app.put('/update/:id',async (req,res)=>{
 })
  
 // delete 
-app.delete('/deleteUser/:id', async (req, res) => {
+router.delete('/deleteUser/:id', async (req, res) => {
     try {
         Id_delete = req.params.id;
         user_to_delete = await User.findByIdAndDelete({ _id: Id_delete });
@@ -76,7 +76,7 @@ app.delete('/deleteUser/:id', async (req, res) => {
 });
 
 //get by id 
-app.get('/getuser/:id',async (req,res)=>{
+router.get('/getuser/:id',async (req,res)=>{
     try {
         myId=req.params.id;
         user1= await User.findOne({_id:myId})

@@ -6,7 +6,7 @@ const Product=require('../models/product')
 /**************************************** Product crud ****************************************/  
 /**************************************** Create ****************************************/  
 
-app.post('/addProduct',async (req,res)=>{
+router.post('/addProduct',async (req,res)=>{
     try {
        data = req.body;
        produit = new Product(data)
@@ -17,7 +17,7 @@ app.post('/addProduct',async (req,res)=>{
     }
 })
 /**************************************** Read ****************************************/  
-app.get('/getProduct', async (req,res)=>{
+router.get('/getProduct', async (req,res)=>{
     try {
         products=await Product.find();
         res.send(products)
@@ -26,7 +26,7 @@ app.get('/getProduct', async (req,res)=>{
     }
 })
 /**************************************** Read by id ****************************************/  
-app.get('/getProductById/:id',async (req,res)=>{
+router.get('/getProductById/:id',async (req,res)=>{
     try {
         id_produit=req.params.id
         produit = await Product.findById({_id:id_produit})
@@ -36,7 +36,7 @@ app.get('/getProductById/:id',async (req,res)=>{
     }
 })
 /**************************************** Update ****************************************/
-app.put('/UpdateProduct/:id',async(req,res)=>{
+router.put('/UpdateProduct/:id',async(req,res)=>{
     try {
         id_produit=req.params.id;
         data = req.body;
@@ -48,7 +48,7 @@ app.put('/UpdateProduct/:id',async(req,res)=>{
     }
 })
 /**************************************** Delete ****************************************/
-app.delete('/deleteProduct/:id',async(req,res)=>{
+router.delete('/deleteProduct/:id',async(req,res)=>{
    try {
         id_produit=req.params.id;
         produit = await Product.findByIdAndDelete( {_id:id_produit} )
