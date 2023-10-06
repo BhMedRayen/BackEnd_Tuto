@@ -23,7 +23,7 @@ catch (error) {
 })
 
 /**************************** sign in ****************************/
-router.post('signIn',async(req,res)=>{
+router.post('/signIn',async(req,res)=>{
     try {
         data = req.body; 
         user = await User.findOne({email : data.email})
