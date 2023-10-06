@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const User=require('../models/user')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 //User Crud 
 /**************************** sign up ****************************/
 
-const bcrypt = require('bcrypt');
 router.post('/signup',async(req,res)=>{
 try {
         data = req.body;
@@ -20,6 +21,35 @@ catch (error) {
     res.status(400).send()
 }
 })
+
+/**************************** sign in ****************************/
+router.post('signIn',async(req,res)=>{
+    try {
+        data = req.body; 
+        user = await User.findOne({email : data.email})
+        if(!user) {
+            res.status(401).send('email or password invalide ! ')
+        }
+        else {
+            valid_pass = bcrypt.compareSync(data.password,user.password)
+            if(!valid_pass){
+                res.status(401).send('email or password invalide ! ')
+            }
+            else {
+                payload = {
+                    _id : user._id , 
+                    email : user.email , 
+                    name : user.name
+                }
+                token = jwt.sign(payload,'12345678')
+                res.status(200).send({mytoken : token})
+            }
+        }
+    } catch (error) {
+        res.status(404).send('User not found')
+    }
+})
+
 
 router.get('/getUserByname/:name',async(req,res)=>{
     try {
