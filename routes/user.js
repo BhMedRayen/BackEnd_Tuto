@@ -1,8 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const User=require('../models/user');
+const User=require('../models/user')
 
 //User Crud 
+/**************************** sign up ****************************/
+
+const bcrypt = require('bcrypt');
+router.post('/signup',async(req,res)=>{
+try {
+        data = req.body;
+        usr = new User(data); 
+        salt = bcrypt.genSaltSync(10);
+        cryptedPass = await bcrypt.hashSync(data.password,salt)
+        usr.password = cryptedPass ; 
+        user = await usr.save();
+        res.status(200).send(user)
+  } 
+catch (error) {
+    res.status(400).send()
+}
+})
+
+router.get('/getUserByname/:name',async(req,res)=>{
+    try {
+        nameUser=req.params.name;
+        user=await User.find({name :nameUser})
+        res.status(200).send(user)
+    } catch (error) {
+        res.status(404).send(error)
+    }
+})
+
+  
+
+
+
 //create : 
 router.post('/add',(req , res)=>{
     data = req.body;
