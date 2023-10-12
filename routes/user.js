@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 
 //User Crud 
 /**************************** sign up ****************************/
-
 router.post('/signup',async(req,res)=>{
 try {
         data = req.body;
